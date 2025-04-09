@@ -14,7 +14,7 @@ class OnlineAI:
             best_move = max(moves, key=moves.get)
             return int(best_move)
         else:
-            print(f"Error communicating with the Connect Four API: {response.status_code} - {response.text}")
+            print(f"Error communicating with the Connect 4 API: {response.status_code} - {response.text}")
             return None
 
     def has_won(self, board_data, player, i, j):
@@ -27,5 +27,5 @@ class OnlineAI:
         if response.status_code == 200:
             return response.json()  # Returns True or False
         else:
-            print(f"Error communicating with the Connect Four API: {response.status_code} - {response.text}")
+            print(f"Error communicating with the Connect 4 API: {response.status_code} - {response.text}")
             return False
