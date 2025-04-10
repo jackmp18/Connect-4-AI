@@ -43,3 +43,7 @@ def check_win(board, piece):
                 return True
 
     return False
+
+def get_board_str(board):
+    # converts each row into str then combines all the rows into one big string
+    return ''.join([''.join(map(str, row)) for row in board])

@@ -4,8 +4,7 @@ file structure
 connect4_ai/
 ├── ai/
 │   ├── minimax.py       # Our AI agent (Minimax + Alpha-Beta)
-│   ├── online_ai.py     # Placeholder for external/online AI (optional later)
-│   └── evaluation.py    # Board evaluation heuristics
+│   └── online_ai.py     # Placeholder for external/online AI (optional later)
 ├── game/
 │   ├── board.py         # Board creation, move logic, win checking (your current code cleaned up)
 │   └── game_loop.py     # Running a game between Human vs AI or AI vs AI

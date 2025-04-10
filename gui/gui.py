@@ -2,8 +2,9 @@
 import tkinter as tk
 from tkinter import messagebox
 import numpy as np
-from game.board import create_board, drop_piece, is_valid_move, check_win
+from game.board import create_board, drop_piece, is_valid_move, check_win, get_board_str
 from ai.minimax import get_best_move  # We'll create this
+from ai.online_ai import OnlineAI
 # from ai.online_ai import get_online_move  # Later if you want
 
 ROWS = 6
@@ -11,9 +12,9 @@ COLS = 7
 SQUARE_SIZE = 100
 
 class Connect4GUI:
-    def __init__(self, root, ai_type="local"):
+    def __init__(self, root, ai_type):
         self.root = root
-        self.root.title("Connect 4 - Your Turn")
+        self.root.title(f"Connect 4 {ai_type} - Your Turn")
         self.board = create_board()
         self.turn = 1  # Player 1 starts
         self.ai_type = ai_type
@@ -58,8 +59,11 @@ class Connect4GUI:
             if self.ai_type == "local":
                 col = get_best_move(self.board, 2)
             else:
-                # col = get_online_move(self.board, 2)
-                col = np.random.choice([c for c in range(COLS) if is_valid_move(self.board, c)])
+                # i guess we assume it is online
+                board_data = get_board_str(self.board)
+                print(board_data)
+                print(self.board)
+                col = OnlineAI.get_best_online_move(board_data)
 
             if is_valid_move(self.board, col):
                 drop_piece(self.board, col, 2)
@@ -71,7 +75,7 @@ class Connect4GUI:
                 self.turn = 1
                 self.draw_board()
 
-def launch_game(ai_type="local"):
+def launch_game(ai_type):
     root = tk.Tk()
     game = Connect4GUI(root, ai_type=ai_type)
     root.mainloop()
