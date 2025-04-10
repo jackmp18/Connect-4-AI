@@ -5,7 +5,7 @@ def main():
     print("Welcome to Connect 4!")
     print("Choose mode:")
     print("1 - Play vs Our AI")
-    print("2 - Play vs Online AI (placeholder)")
+    print("2 - Play vs Online AI")
 
     choice = input("Enter 1 or 2: ").strip()
 

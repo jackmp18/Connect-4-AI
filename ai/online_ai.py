@@ -6,9 +6,11 @@ class OnlineAI:
     def __init__(self):
         self.get_moves_endpoint = f"{self.CONNECT4_URL}/getMoves"
         self.has_won_endpoint = f"{self.CONNECT4_URL}/hasWon"
-
-    def get_best_move(self, board_data, player=1):
-        response = requests.get(self.get_moves_endpoint, params={"board_data": board_data, "player": player})
+        
+    # added 'online' to differentiate
+    def get_best_online_move(self, board_data):
+        response = requests.get(self.get_moves_endpoint, params={"board_data": board_data, "player": 2})
+        print(response)
         if response.status_code == 200:
             moves = response.json()
             best_move = max(moves, key=moves.get)
