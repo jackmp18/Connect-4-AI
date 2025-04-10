@@ -25,6 +25,7 @@ def get_best_move(board, piece):
 def minimax(board, search_depth, alpha, beta, maximizing_player, piece, opponent_piece):
     valid_moves = [c for c in range(board.shape[1]) if is_valid_move(board, c)]
 
+    #Terminal conditions
     if search_depth == 0:
         return evaluate_board(board, piece)
     elif check_win(board, piece):
@@ -32,25 +33,34 @@ def minimax(board, search_depth, alpha, beta, maximizing_player, piece, opponent
     elif check_win(board, opponent_piece):
         return -10000
     elif len(valid_moves) == 0:
+        #Draw
         return 0
 
     if maximizing_player:
         value = -float("inf")
         for col in valid_moves:
             temp_board = board.copy()
-            drop_piece(temp_board, col, piece)
-            value = max(value, minimax(temp_board, search_depth -1, alpha, beta, False, piece, opponent_piece))
-            alpha = max(alpha, value)
-            if beta <= alpha: break
+            #Check if move is valid
+            if drop_piece(temp_board, col, piece):
+                score = minimax(temp_board, search_depth -1, alpha, beta, False, piece, opponent_piece)
+                value = max(value, score)
+                alpha = max(alpha, value)
+                #Prune the remaining branches
+                if beta <= alpha:
+                    break
         return value
     else:
         value = float("inf")
         for col in valid_moves:
             temp_board = board.copy()
-            drop_piece(temp_board, col, opponent_piece)
-            value = min(value, minimax(temp_board, search_depth - 1, alpha, beta, True, piece, opponent_piece))
-            beta = min(beta, value)
-            if beta <= alpha: break
+            #Check if move is valid
+            if drop_piece(temp_board, col, opponent_piece):
+                score = minimax(temp_board, search_depth - 1, alpha, beta, True, piece, opponent_piece)
+                value = min(value, score)
+                beta = min(beta, value)
+                #Prune the remaining branches
+                if beta <= alpha:
+                    break
         return value
 
 def evaluate_board(board, piece):
