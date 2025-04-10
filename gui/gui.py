@@ -63,7 +63,9 @@ class Connect4GUI:
                 board_data = get_board_str(self.board)
                 print(board_data)
                 print(self.board)
-                col = OnlineAI.get_best_online_move(board_data)
+                best_moves = OnlineAI.get_best_online_move(board_data)
+                # returns the column with the highest val
+                col = max(best_moves, key=best_moves.get)
 
             if is_valid_move(self.board, col):
                 drop_piece(self.board, col, 2)
