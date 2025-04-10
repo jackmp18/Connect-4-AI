@@ -13,7 +13,7 @@ SQUARE_SIZE = 100
 class Connect4GUI:
     def __init__(self, root, ai_type="local"):
         self.root = root
-        self.root.title("Connect 4")
+        self.root.title("Connect 4 - Your Turn")
         self.board = create_board()
         self.turn = 1  # Player 1 starts
         self.ai_type = ai_type
@@ -34,9 +34,9 @@ class Connect4GUI:
                 y1 = y0 + SQUARE_SIZE
                 color = "white"
                 if self.board[r][c] == 1:
-                    color = "red"
-                elif self.board[r][c] == 2:
                     color = "yellow"
+                elif self.board[r][c] == 2:
+                    color = "red"
                 self.canvas.create_oval(x0+5, y0+5, x1-5, y1-5, fill=color)
 
     def handle_click(self, event):
@@ -46,8 +46,9 @@ class Connect4GUI:
                 drop_piece(self.board, col, 1)
                 if check_win(self.board, 1):
                     self.draw_board()
-                    messagebox.showinfo("Game Over", "You (Red) win!")
+                    messagebox.showinfo("Game Over", "You (Yellow) win!")
                     self.root.quit()
+                self.root.title("Connect 4 - AI's Turn")
                 self.turn = 2
                 self.draw_board()
                 self.root.after(500, self.ai_move)
@@ -64,8 +65,9 @@ class Connect4GUI:
                 drop_piece(self.board, col, 2)
                 if check_win(self.board, 2):
                     self.draw_board()
-                    messagebox.showinfo("Game Over", "AI (Yellow) wins!")
+                    messagebox.showinfo("Game Over", "AI (Red) wins!")
                     self.root.quit()
+                self.root.title("Connect 4 - Your Turn")
                 self.turn = 1
                 self.draw_board()
 
