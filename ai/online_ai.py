@@ -9,7 +9,7 @@ class OnlineAI:
         
     # added 'online' to differentiate
     def get_best_online_move(self, board_data):
-        response = f"{self.get_moves_endpoint}?board_data={board_data}&player=2"
+        response = requests.get(self.get_moves_endpoint, params={"board_data": board_data, "player": 2})
         print(response)
         if response.status_code == 200:
             moves = response.json()

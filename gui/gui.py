@@ -5,7 +5,6 @@ import numpy as np
 from game.board import create_board, drop_piece, is_valid_move, check_win, get_board_str
 from ai.minimax import get_best_move  # We'll create this
 from ai.online_ai import OnlineAI
-# from ai.online_ai import get_online_move  # Later if you want
 
 ROWS = 6
 COLS = 7
@@ -61,11 +60,9 @@ class Connect4GUI:
             else:
                 # i guess we assume it is online
                 board_data = get_board_str(self.board)
-                print(board_data)
-                print(self.board)
-                best_moves = OnlineAI.get_best_online_move(board_data)
-                # returns the column with the highest val
-                col = max(best_moves, key=best_moves.get)
+                # creates an instance of the online stuff to call upon
+                online_ai = OnlineAI()
+                col = online_ai.get_best_online_move(board_data)
 
             if is_valid_move(self.board, col):
                 drop_piece(self.board, col, 2)
